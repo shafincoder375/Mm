@@ -15,7 +15,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-
+const storage = firebase.storage(); 
 // ──────────────────────────────────────────────────────────────
 // ২) Global Variables & WebRTC Setup
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
