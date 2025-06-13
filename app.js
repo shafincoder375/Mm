@@ -34,12 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const userId = currentUser.phone;
     const peerId = chatId.split('_').find(p => p !== userId);
-    setupCall(userId, peerId);
-  };
+    setupCall(userId, peerId);};
       // 🖼️ ছবি বাটনে ক্লিক করলে ফাইল ইনপুট ওপেন হবে
   document.getElementById('photoBtn').onclick = () => {
-    document.getElementById('photoInput').click();
-  };
+    document.getElementById('photoInput').click();};
 
   // 📷 ফাইল সিলেক্ট হলে সঙ্গে সঙ্গে Firebase-এ আপলোড এবং চ্যাটে পাঠানো হবে
   document.getElementById('photoInput').addEventListener('change', async (e) => {
@@ -67,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     e.target.value = ''; // reset file input
   });
+});
 // ──────────────────────────────────────────────────────────────
 // ৩) On Load: Restore Login & Start Presence Tracking
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
