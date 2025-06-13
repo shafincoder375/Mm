@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const storageRef = firebase.storage().ref();
+    const storageRef = storage.ref();
     const imageRef = storageRef.child(`images/${Date.now()}_${file.name}`);
     await imageRef.put(file);
 
