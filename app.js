@@ -200,8 +200,11 @@ function loadChat() {
     const data = snapshot.val();
     const div = document.createElement("div");
     div.className = "message";
-    div.innerHTML = `${data.sender}: ${data.text}<div class="timestamp">${data.time}</div>`;
-
+    div.innerHTML = `
+  <div><strong>${data.sender}</strong></div>
+  <div>${data.text}</div>
+  <div class="timestamp">${data.time}</div>
+`;
     div.oncontextmenu = e => {
       e.preventDefault();
       openDeleteModal(div, snapshot);
