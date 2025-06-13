@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>বাংলা কথা</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+  <header>বাংলা কথা</header>
+  <div id="loginPage" class="page active">
+    <input id="nameInput" type="text" placeholder="আপনার নাম লিখুন" />
+    <input id="phoneInput" type="text" placeholder="আপনার ফোন নাম্বার লিখুন" />
+    <button onclick="startApp()">Get Started</button>
+  </div>
+
+  <div id="chatPage" class="page">
+    <button id="backBtn" onclick="hideChatArea()" style="display:none; position:absolute; top:10px; left:10px;">⬅️</button>
+    <div class="top-btns">
+      <button onclick="toggleFriendForm()">➕</button>
+    </div>
+     <button id="start-audio-call" title="Audio Call">📞</button>
+   <!-- Gallery Button -->
+  <label for="photoInput" style="cursor: pointer;">🖼️</label>
+  <input type="file" id="photoInput" accept="image/*" style="display: none;" />
+  </div>
+    <div id="friendForm" style="display:none;">
+      <input id="friendName" type="text" placeholder="বন্ধুর নাম" />
+      <input id="friendPhone" type="text" placeholder="বন্ধুর ফোন নাম্বার" />
+      <button onclick="connectFriend()">Connect</button>
+    </div>
+
+    <div id="friendList"></div>
+    <div id="messages" style="display:none;"></div>
+    <footer style="display:none;">
+      <input id="textInput" type="text" placeholder="মেসেজ লিখুন বা বলুন..." />
+      <button onclick="sendMessage()">✉️</button>
+      <button onclick="startVoiceInput()">🎤</button>
+    </footer>
+  </div>
+
+  <div id="deleteModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.3); z-index:999;">
+    <p>মেসেজ ডিলিট করতে চান?</p>
+    <button onclick="confirmDelete('everyone')">সবার থেকে মুছুন</button>
+    <button onclick="confirmDelete('me')">শুধু আমার থেকে</button>
+    <button onclick="closeModal()">❌ বাতিল</button>
+  </div>
+<!-- Caller UI -->
+<div id="caller-ui" style="display:none; flex-direction:column; align-items:center; gap:10px;">
+  <p>Calling <span id="friend-name"></span>…</p>
+  <button id="hangup-call">Hang Up</button>
+</div>
+
+<!-- Receiver UI -->
+<div id="receiver-ui" style="display:none; flex-direction:column; align-items:center; gap:10px;">
+  <p>Incoming call from <span id="caller-name"></span></p>
+  <button id="answer-call">Pick Up</button>
+  <button id="reject-call">Reject</button>
+</div>
+
+<!-- In-Call UI -->
+<div id="in-call-ui" style="display:none; flex-direction:column; align-items:center; gap:10px;">
+  <p>In Call with <span id="peer-name"></span></p>
+  <audio id="remoteAudio" autoplay></audio>
+  <button id="toggle-speaker">🔊 Speaker</button>
+  <button id="hangup-incall">Hang Up</button>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
