@@ -34,26 +34,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const userId = currentUser.phone;
     const peerId = chatId.split('_').find(p => p !== userId);
-    setupCall(userId, peerId);};
-    document.getElementById('photoInput').addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+    setupCall(userId, peerId);
+  };
+      // 🖼️ ছবি বাটনে ক্লিক করলে ফাইল ইনপুট ওপেন হবে
+  document.getElementById('photoBtn').onclick = () => {
+    document.getElementById('photoInput').click();
+  };
 
-  const storageRef = firebase.storage().ref();
-  const imageRef = storageRef.child(`images/${Date.now()}_${file.name}`);
-  await imageRef.put(file);
+  // 📷 ফাইল সিলেক্ট হলে সঙ্গে সঙ্গে Firebase-এ আপলোড এবং চ্যাটে পাঠানো হবে
+  document.getElementById('photoInput').addEventListener('change', async (e) => {
+    if (!chatId) {
+      alert("প্রথমে চ্যাট খুলুন");
+      return;
+    }
 
-  const imageUrl = await imageRef.getDownloadURL();
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  db.ref("chats/" + chatId).push({
-    text: `<img src="${imageUrl}" style="max-width:200px; border-radius:8px;" />`,
-    time: timestamp,
-    sender: currentUser.name,
-    isImage: true
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child(`images/${Date.now()}_${file.name}`);
+    await imageRef.put(file);
+
+    const imageUrl = await imageRef.getDownloadURL();
+
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    db.ref("chats/" + chatId).push({
+      text: `<img src="${imageUrl}" style="max-width:200px; border-radius:8px;" />`,
+      time: timestamp,
+      sender: currentUser.name,
+      isImage: true
+    });
+
+    e.target.value = ''; // reset file input
   });
-});
-});
 // ──────────────────────────────────────────────────────────────
 // ৩) On Load: Restore Login & Start Presence Tracking
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
